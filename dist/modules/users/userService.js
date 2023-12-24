@@ -16,12 +16,13 @@ exports.createUserToDatabase = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const db_server_1 = require("../../utils/db.server");
 const createUserToDatabase = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fullName, email, password, } = payload;
+    const { fullName, email, password, role } = payload;
     const encryptedPassword = yield bcrypt_1.default.hash(password, 10);
     const newUser = yield db_server_1.db.user.create({
         data: {
             fullName,
             email,
+            role,
             password: encryptedPassword,
         },
     });

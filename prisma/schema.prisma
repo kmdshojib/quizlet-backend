@@ -11,10 +11,40 @@ datasource db {
 }
 
 model user {
-  id Int @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  fullName  String
+  email     String    @unique
+  role      String
+  password  String
+  quizScore QuizScore?
+}
+
+model QuizScore {
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  fullName String 
-  email String @unique
-  password String
+  fullName  String
+  scores    Json
+  userId    Int      @unique
+  user      user?    @relation(fields: [userId], references: [id])
+}
+
+model Quiz {
+  id        Int        @id @default(autoincrement())
+  category  String
+  imageUrl  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  questions Question[]
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  quiz          Quiz     @relation(fields: [quizId], references: [id])
+  quizId        Int
+  text          String
+  options       String[]
+  correctAnswer String
 }

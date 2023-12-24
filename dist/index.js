@@ -40,6 +40,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const db_server_1 = require("./utils/db.server");
 const userRoute_1 = __importDefault(require("./modules/users/userRoute"));
+const quizRoute_1 = __importDefault(require("./modules/quiz/quizRoute"));
 dotenv.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
@@ -50,6 +51,7 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 app.use("/api/user", userRoute_1.default);
+app.use("/api/quiz", quizRoute_1.default);
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield db_server_1.db.$connect();

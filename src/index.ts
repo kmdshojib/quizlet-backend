@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { db } from './utils/db.server';
 import userRoute from './modules/users/userRoute';
+import quizRoute from './modules/quiz/quizRoute';
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 })
 app.use("/api/user", userRoute);
+app.use("/api/quiz", quizRoute)
 const main = async () => {
     try {
         await db.$connect();
